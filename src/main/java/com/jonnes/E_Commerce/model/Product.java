@@ -1,4 +1,4 @@
-package com.jonnes.E_Commerce;
+package com.jonnes.E_Commerce.model;
 
 
 import jakarta.persistence.Entity;
@@ -26,5 +26,6 @@ public class Product {
     private BigDecimal price;
     private String category;
     private Date releaseDate;
+    private boolean productAvailable;
     private int stockquantity;
 }
