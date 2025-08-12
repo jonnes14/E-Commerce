@@ -2,6 +2,7 @@ package com.jonnes.E_Commerce.repo;
 
 import com.jonnes.E_Commerce.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ProductRepo extends JpaRepository<Product,Integer> {
 
-
+    Product findAllById(int id);
 }
