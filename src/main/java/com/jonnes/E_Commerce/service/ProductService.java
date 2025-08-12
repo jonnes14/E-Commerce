@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -21,5 +23,20 @@ public class ProductService {
 
     public Product getProductById(int id) {
         return productRepo.findById(id).orElse(new Product());
+    }
+
+    public Product addProduct(Product product, MultipartFile image) throws IOException {
+        product.setImagename(image.getOriginalFilename());
+        product.setImagetype(image.getContentType());
+        product.setImagedata(image.getBytes());
+        return productRepo.save(product);
+    }
+
+
+    public Product updateProduct(Product product, MultipartFile image) throws IOException {
+        product.setImagename(image.getOriginalFilename());
+        product.setImagetype(image.getContentType());
+        product.setImagedata(image.getBytes());
+        return productRepo.save(product);
     }
 }
