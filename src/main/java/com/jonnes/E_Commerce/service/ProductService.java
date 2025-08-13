@@ -15,28 +15,31 @@ import java.util.List;
 @Service
 public class ProductService {
     @Autowired
-   private  ProductRepo productRepo;
+    private ProductRepo productRepo;
 
-    public List<Product> getAllProduct() {
+    public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
 
     public Product getProductById(int id) {
-        return productRepo.findById(id).orElse(new Product());
+        return productRepo.findById(id).orElse(new Product(-1));
     }
 
-    public Product addProduct(Product product, MultipartFile image) throws IOException {
-        product.setImagename(image.getOriginalFilename());
-        product.setImagetype(image.getContentType());
-        product.setImagedata(image.getBytes());
+    public Product addOrUpdateProduct(Product product, MultipartFile image) throws IOException {
+        product.setImageName(image.getOriginalFilename());
+        product.setImageType(image.getContentType());
+        product.setImageData(image.getBytes());
+
         return productRepo.save(product);
     }
 
 
-    public Product updateProduct(Product product, MultipartFile image) throws IOException {
-        product.setImagename(image.getOriginalFilename());
-        product.setImagetype(image.getContentType());
-        product.setImagedata(image.getBytes());
-        return productRepo.save(product);
+    public void deleteProduct(int id) {
+        productRepo.deleteById(id);
+    }
+
+
+    public List<Product> searchProduct(String keyword) {
+       return productRepo.searchProduct(keyword);
     }
 }
